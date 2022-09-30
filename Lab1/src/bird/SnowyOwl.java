@@ -11,4 +11,16 @@ public class SnowyOwl extends Owl {
     public SnowyOwl(String nickName) {
         this.nickName = nickName;
     }
+    public String getNickName() {
+        return nickName;
+    }
+    public static String getSpeciesName() {
+        return speciesName;
+    }
+    public String[] getFavFood() {
+        return favFood;
+    }
+    public static boolean isExtinction() {
+        return extinction;
+    }
 }

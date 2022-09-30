@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SwanTest {
     Swan sw1;
 
-    @BeforeAll
+    @BeforeEach
     public void testConstructor() {
         sw1 = new Swan("Tim");
     }

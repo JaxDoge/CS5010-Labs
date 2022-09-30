@@ -12,4 +12,16 @@ public class Hawk extends PreyBird{
         this.nickName = nickName;
     }
 
+    public String getNickName() {
+        return this.nickName;
+    }
+    public static String getSpeciesName() {
+        return speciesName;
+    }
+    public static String[] getFavFood() {
+        return favFood;
+    }
+    public static boolean isExtinction() {
+        return extinction;
+    }
 }

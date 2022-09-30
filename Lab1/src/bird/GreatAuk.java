@@ -12,4 +12,21 @@ public class GreatAuk extends Shorebird{
     public GreatAuk(String nickName) {
         this.nickName = nickName;
     }
+
+    public String getNickName() {
+        return this.nickName;
+    }
+    public static String getSpeciesName() {
+        return speciesName;
+    }
+    public static String[] getFavFood() {
+        return favFood;
+    }
+    public static boolean isExtinction() {
+        return extinction;
+    }
+
+    public static String getWaterBody() {
+        return waterBody;
+    }
 }

@@ -15,4 +15,22 @@ public class RoseringParakeet extends Parrot{
         this.nickName = nickName;
         this.favSaying = favSaying;
     }
+    public String getNickName() {
+        return nickName;
+    }
+    public String sayHi() {
+        return this.favSaying;
+    }
+    public static String getSpeciesName() {
+        return speciesName;
+    }
+    public String[] getFavFood() {
+        return favFood;
+    }
+    public static boolean isExtinction() {
+        return extinction;
+    }
+    public static int getVocabulary() {
+        return vocabulary;
+    }
 }

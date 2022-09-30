@@ -11,4 +11,16 @@ public class BlueheadedQuaildove extends Pigeon{
     public BlueheadedQuaildove(String nickName) {
         this.nickName = nickName;
     }
+    public String getNickName() {
+        return this.nickName;
+    }
+    public static String getSpeciesName() {
+        return speciesName;
+    }
+    public static String[] getFavFood() {
+        return favFood;
+    }
+    public static boolean isExtinction() {
+        return extinction;
+    }
 }

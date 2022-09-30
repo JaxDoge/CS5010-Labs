@@ -20,10 +20,6 @@ public class Moa extends FlightlessBird{
         return speciesName;
     }
 
-    public static String getTypeName() {
-        return typeName;
-    }
-
     public static String[] getFavFood() {
         return favFood;
     }

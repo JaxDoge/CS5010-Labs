@@ -7,10 +7,13 @@ public class Shorebird extends Bird {
     static String habitat = "Water";
     static int wings = 2;
 
-
-    public static void main(String[] args) {
-        System.out.println(bloodtemp);
+    public static String getTypeName() {
+        return typeName;
     }
-
-
+    public static String getHabitat() {
+        return habitat;
+    }
+    public static int getWingNum() {
+        return wings;
+    }
 }
