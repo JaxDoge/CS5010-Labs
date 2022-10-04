@@ -5,7 +5,6 @@ public class SnowyOwl extends Owl {
     /**
      * Common attributes for all birds in this species*/
     static String speciesName = "Snowy Owl";
-    static boolean extinction = false;
     static String[] favFood = new String[] {"small mammals", "insects"};
 
     public SnowyOwl(String nickName) {
@@ -20,7 +19,5 @@ public class SnowyOwl extends Owl {
     public String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
-    }
+
 }

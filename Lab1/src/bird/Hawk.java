@@ -5,7 +5,6 @@ public class Hawk extends PreyBird{
     /**
      * Common attributes for all hawks*/
     static String speciesName = "Hawk";
-    static boolean extinction = false;
     static String[] favFood = new String[] {"fish", " small mammals"};
 
     public Hawk(String nickName) {
@@ -21,7 +20,5 @@ public class Hawk extends PreyBird{
     public static String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
-    }
+
 }

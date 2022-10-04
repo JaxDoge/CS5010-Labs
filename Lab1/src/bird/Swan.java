@@ -5,7 +5,6 @@ public class Swan extends Waterfowl{
     /**
      * Common attributes for all hawks*/
     static String speciesName = "Swan";
-    static boolean extinction = false;
     static String[] favFood = new String[] {"insects", "berries"};
     static String waterBody = "Fresh water lake";
 
@@ -21,9 +20,7 @@ public class Swan extends Waterfowl{
     public String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
-    }
+
     public static String getWaterBody() {
         return waterBody;
     }

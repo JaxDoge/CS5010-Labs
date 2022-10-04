@@ -5,7 +5,6 @@ public class BlueheadedQuaildove extends Pigeon{
     /**
      * Common attributes for all birds in this species*/
     static String speciesName = "Blue-headed quail-dove";
-    static boolean extinction = false;
     static String[] favFood = new String[] {"buds", "larvae"};
 
     public BlueheadedQuaildove(String nickName) {
@@ -20,7 +19,5 @@ public class BlueheadedQuaildove extends Pigeon{
     public static String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
-    }
+
 }

@@ -17,7 +17,12 @@ public class Bird {
     protected static EatStr eatingstructure = EatStr.Beak;
 
     /**
-     * Attributes that vary from different species*/
+     * Attributes that vary from different species
+     * */
+
+    public boolean isExtinction() {
+        return false;
+    }
 
 
 }

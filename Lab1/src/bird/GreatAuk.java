@@ -5,7 +5,6 @@ public class GreatAuk extends Shorebird{
     /**
      * Common attributes for all hawks*/
     static String speciesName = "GreatAuk";
-    static boolean extinction = true;
     static String[] favFood = new String[] {"insects", "aquatic invertebrates"};
     static String waterBody = "Saltwater shorelands";
 
@@ -22,8 +21,10 @@ public class GreatAuk extends Shorebird{
     public static String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
+
+    @Override
+    public boolean isExtinction() {
+        return true;
     }
 
     public static String getWaterBody() {

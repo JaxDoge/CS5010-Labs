@@ -7,7 +7,6 @@ public class RoseringParakeet extends Parrot{
     /**
      * Common attributes for all RoseringParakeet*/
     static String speciesName = "Rose-ringed parakeet";
-    static boolean extinction = false;
     static String[] favFood = new String[] {"berries", "seeds"};
     static int vocabulary = 103;
 
@@ -27,9 +26,7 @@ public class RoseringParakeet extends Parrot{
     public String[] getFavFood() {
         return favFood;
     }
-    public static boolean isExtinction() {
-        return extinction;
-    }
+
     public static int getVocabulary() {
         return vocabulary;
     }

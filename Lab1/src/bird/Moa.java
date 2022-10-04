@@ -5,7 +5,6 @@ public class Moa extends FlightlessBird{
     /**
      * Common attributes for all all birds in this species*/
     static String speciesName = "Moa";
-    static boolean extinction = true;
     static String[] favFood = new String[] {"fruit", "vegetation"};
 
     public Moa(String nickName) {
@@ -24,7 +23,8 @@ public class Moa extends FlightlessBird{
         return favFood;
     }
 
-    public static boolean isExtinction() {
-        return extinction;
+    @Override
+    public boolean isExtinction() {
+        return true;
     }
 }
