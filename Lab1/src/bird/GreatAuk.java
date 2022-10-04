@@ -1,5 +1,7 @@
 package bird;
 
+import java.util.StringJoiner;
+
 public class GreatAuk extends Shorebird{
     String nickName;
     /**
@@ -29,5 +31,14 @@ public class GreatAuk extends Shorebird{
 
     public static String getWaterBody() {
         return waterBody;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner sj = new StringJoiner(":");
+        sj.add(typeName);
+        sj.add(speciesName);
+        sj.add(this.nickName);
+        return sj.toString();
     }
 }

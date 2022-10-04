@@ -1,5 +1,7 @@
 package bird;
 
+import java.util.StringJoiner;
+
 public class Swan extends Waterfowl{
     String nickName;
     /**
@@ -23,5 +25,14 @@ public class Swan extends Waterfowl{
 
     public static String getWaterBody() {
         return waterBody;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner sj = new StringJoiner(":");
+        sj.add(typeName);
+        sj.add(speciesName);
+        sj.add(this.nickName);
+        return sj.toString();
     }
 }
