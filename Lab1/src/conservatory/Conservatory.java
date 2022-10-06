@@ -1,7 +1,7 @@
 package conservatory;
 
 import java.util.*;
-import bird.Bird;
+import bird.Birdable;
 
 
 public class Conservatory {
@@ -76,7 +76,7 @@ public class Conservatory {
      * We need check each aviary and find the first suitable one
      * If there is no aviary here, we need create one
      * Return Boolean: if this bird is successfully settle here*/
-    public boolean addNewBird(Bird bird) {
+    public boolean addNewBird(Birdable bird) {
         // Check if bird is species
         if (!species.contains(bird.getClass().getSimpleName())) {
             System.out.println("It is not a bird species.");
@@ -102,7 +102,7 @@ public class Conservatory {
     /**
      * Helper function: Create a new aviary and put a new bird inside
      * Return Boolean: If it is a successful operation*/
-    private boolean putBirdInNewAviary(Bird bird) {
+    private boolean putBirdInNewAviary(Birdable bird) {
         if(!this.checkSpace()) { return false; }
         Aviary newAv = new Aviary();
         return this.addNewAviary(newAv) && newAv.addBird(bird);
@@ -117,7 +117,7 @@ public class Conservatory {
             System.out.println();
             return "{}";
         }
-        StringJoiner sj = new StringJoiner(", ", "{", "}");
+        StringJoiner sj = new StringJoiner(", \n", "{", "}");
         for (Aviary av : this.aviaryList) {
             sj.add(av.toString());
         }

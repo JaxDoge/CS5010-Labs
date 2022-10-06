@@ -1,24 +1,34 @@
 package bird;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class PreyBird extends Bird {
-    protected static String typeName = "Bird of Prey";
-    protected static String beakShape = "Sharp, hooked beaks with visible nostrils";
-    protected static String habitat = "Land";
-    protected static int wings = 2;
 
-    public static String getTypeName() {
-        return typeName;
+    public PreyBird(String nickName, String speciesName, boolean extinction) {
+        setNickName(nickName);
+        setSpeciesName(speciesName);
+        setTypeName(TypeName.PREY_BIRD);
+        setExtinction(extinction);
+        Map<Food, Integer> favFood = new HashMap<>();
+        favFood.put(Food.Other_Birds, 5);
+        favFood.put(Food.Small_Mammals, 2);
+        setFavFood(favFood);
+        setCharacteristic(Arrays.asList("have sharp, hooked beaks", "visible nostrils"));
+        setWingsNum(2);
+        setWaterHabitat(false);
     }
 
-    public static String getHabitat() {
-        return habitat;
-    }
-
-    public static int getWingNum() {
-        return wings;
-    }
-
-    public static String getBeakShape() {
-        return beakShape;
+    public PreyBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
+        setNickName(nickName);
+        setSpeciesName(speciesName);
+        setTypeName(TypeName.PREY_BIRD);
+        setExtinction(extinction);
+        setFavFood(favFood);
+        setCharacteristic(Arrays.asList("have sharp, hooked beaks", "visible nostrils"));
+        setWingsNum(2);
+        setWaterHabitat(false);
     }
 }

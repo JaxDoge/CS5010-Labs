@@ -1,8 +1,6 @@
 package bird;
 
-import bird.Bird;
-
-public class Shorebird extends Bird {
+public class Shorebird extends Birdable {
     static String typeName = "Shorebird";
     static String habitat = "Water";
     static int wings = 2;

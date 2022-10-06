@@ -5,7 +5,9 @@ import java.util.*;
 
 public class Aviary {
     private static final int maxBirds = 5;
-    private final ArrayList<Bird> curBirdsList;
+    private static int AviaryIndex = 0;
+    private String location;
+    private final ArrayList<Birdable> curBirdsList;
 
     /**
      * Using a set to record all "species level" bird names
@@ -17,6 +19,12 @@ public class Aviary {
      * default constructor. Create an empty aviary*/
     public Aviary() {
         curBirdsList = new ArrayList<>();
+        this.location = "Location " + AviaryIndex;
+        AviaryIndex ++;
+    }
+
+    public String getLocation() {
+        return this.location;
     }
 
     /**
@@ -28,7 +36,7 @@ public class Aviary {
     /**
      * Add a bird in this aviary
      * return Boolean: Whether this bird is successfully added*/
-    public boolean addBird(Bird bird) {
+    public boolean addBird(Birdable bird) {
         // Check if bird is species
         if (!species.contains(bird.getClass().getSimpleName())) {
             System.out.println("It is not a bird species.");
@@ -52,7 +60,7 @@ public class Aviary {
         }
         // case 4, this bird, or the bird in this aviary is one of these species: flightless birds, birds of prey, and waterfowl, which should not be mixed with other bird types
         else if (this.isDemanded(bird)) {
-            Bird firstBird = this.curBirdsList.get(0);
+            Birdable firstBird = this.curBirdsList.get(0);
             if (firstBird.getClass().getSuperclass().getSimpleName().equals(bird.getClass().getSuperclass().getSimpleName())) {
                 this.curBirdsList.add(bird);
                 return true;
@@ -70,8 +78,8 @@ public class Aviary {
     /**
      * Helper function, judge if this is a demanded bird or demanded aviary
      * Return Boolean: */
-    private boolean isDemanded(Bird bird) {
-        Bird firstBird = this.getBird(0);
+    private boolean isDemanded(Birdable bird) {
+        Birdable firstBird = this.getBird(0);
         return exclusiveType.contains(bird.getClass().getSuperclass().getSimpleName()) ||
                 exclusiveType.contains(firstBird.getClass().getSuperclass().getSimpleName());
     }
@@ -79,7 +87,7 @@ public class Aviary {
 
     /**
      * Remove a bird from this aviary by bird pointer*/
-    public boolean removeBird(Bird bird) {
+    public boolean removeBird(Birdable bird) {
         //Check input bird is a species
         if (!species.contains(bird.getClass().getSimpleName())) {
             System.out.println("It is not a bird species.");
@@ -93,7 +101,7 @@ public class Aviary {
     /**
      * Retrieve the bird object on given index
      * */
-    public Bird getBird(int index) {
+    public Birdable getBird(int index) {
         if (index < 0) {
             System.out.printf("Index %s is smaller than ZERO.%n", index);
             return null;
@@ -118,7 +126,7 @@ public class Aviary {
         }
 
         StringJoiner birdList = new StringJoiner(", ","[","]");
-        for (Bird b : this.curBirdsList) {
+        for (Birdable b : this.curBirdsList) {
             birdList.add(b.toString());
         }
 

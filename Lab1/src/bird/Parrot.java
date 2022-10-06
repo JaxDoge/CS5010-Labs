@@ -1,6 +1,6 @@
 package bird;
 
-public class Parrot extends Bird{
+public class Parrot extends Birdable {
     protected static String typeName = "Parrot";
     protected static String habitat = "Land";
     protected static int wings = 2;
