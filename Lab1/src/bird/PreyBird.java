@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Birds of prey all have sharp, hooked beaks with visible nostrils. They include hawks, eagles, and osprey.
+ * */
 public class PreyBird extends Bird {
 
     public PreyBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {

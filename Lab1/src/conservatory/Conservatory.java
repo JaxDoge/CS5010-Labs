@@ -5,7 +5,15 @@ import bird.Bird;
 import bird.Food;
 import org.jetbrains.annotations.NotNull;
 
-
+/**
+ * Conservatory class define all common properties and methods that a conservatory class need possess.
+ * A conservatory object could create a new aviary object inside, retrieve it or delete it.
+ * It can remove any exist aviary object.
+ * It can rescue a bird if that is possible
+ * It can calculate what food needs to be kept and in what quantities
+ * It can print a “map” that lists all the aviaries by location and the birds they house
+ * It can print an index that lists all birds in the conservatory in alphabetical order and their location
+ * */
 public class Conservatory {
     private static final int maxAviaries = 20;
 
@@ -20,7 +28,8 @@ public class Conservatory {
     }
 
     /**
-     * return the length of current aviary number*/
+     * return the length of current aviary number
+     * */
     public int getCurrentAviaryNum() {
         return this.aviaryList.size();
     }
@@ -36,7 +45,8 @@ public class Conservatory {
     /**
      * Create a new aviary in this conservatory
      * return: Boolean If successfully add a new aviary
-     * avi: Aviary a aviary ready to be put in*/
+     * Param1 avi Aviary: An aviary ready to be put in
+     * */
     public boolean addNewAviary(Aviary avi) {
         if (this.aviaryList.contains(avi)) {
             System.out.println("This aviary is already exist.");
@@ -54,7 +64,9 @@ public class Conservatory {
 
     /**
      * Remove a given aviary by corresponding index
-     * return: Boolean If this is a success operation*/
+     * Param1 avi Aviary: An aviary ready to be rip off.
+     * return: Boolean If this is a success operation
+     * */
     public boolean removeAviary(Aviary avi) {
         return this.aviaryList.remove(avi);
     }
@@ -72,8 +84,11 @@ public class Conservatory {
      * There is a bird need to be added in this conservatory
      * We need check each aviary and find the first suitable one
      * If there is no aviary here, we need create one
-     * Return Boolean: if this bird is successfully settle here*/
-    public boolean addNewBird(Bird bird) {
+     * Param1 Bird: A bird ready to be put in
+     * Return Boolean: if this bird is successfully settle here
+     * Throw IllegalArgumentException if it's a duplicate adding.
+     */
+    public boolean addNewBird(@NotNull Bird bird) {
         // Check if this bird is extincted
         if (bird.isExtinction()) {
             System.out.println("This is an extincted bird");
@@ -101,8 +116,11 @@ public class Conservatory {
 
     /**
      * Helper function: Create a new aviary and put a new bird inside
-     * Return Boolean: If it is a successful operation*/
-    private Aviary putBirdInNewAviary(Bird bird) {
+     * Param1 Bird: A bird ready to be put in
+     * Return Boolean: If it is a successful operation
+     * Throw IllegalArgumentException if it's a duplicate adding.
+     * */
+    private Aviary putBirdInNewAviary(@NotNull Bird bird) {
         if(!this.checkSpace()) { return null; }
         Aviary newAv = new Aviary();
         if (this.addNewAviary(newAv) && newAv.addBird(bird)) {
@@ -113,6 +131,7 @@ public class Conservatory {
 
     /**
      * Update a new bird food requirement to the conservatory level total food demands
+     * Param1 Bird: A bird that newly been taken in.
      * */
     public void updateFoodDemand(@NotNull Bird bird) {
         if (bird.getFavFood() == null) {
@@ -127,15 +146,26 @@ public class Conservatory {
 
     /**
      * Get the conservatory level food demands
+     * Return Map<Food, Integer>: current food demand map.
      * */
     public Map<Food, Integer> getConservatoryFoodDemand() {
         return this.conservatoryFoodDemand;
     }
 
+    /**
+     * For quick retrieve the aviary that a given bird housed. Conservatory update the bird - aviary relation memo each time when a new bird is taken in.
+     * Param1 Bird: A bird that newly been taken in.
+     * Param2 Aviary: The target aviary
+     * */
     public void updateBird2Aviary(Bird bird, Aviary aviary) {
         this.bird2Aviary.put(bird, aviary);
     }
 
+    /**
+     * Retrieve the location of a bird
+     * Param1 Bird: A bird that newly been taken in.
+     * Return Aviary: The aviary that bird living
+     * */
     public Aviary checkBirdAviary(Bird bird) {
         if (this.bird2Aviary.containsKey(bird)) {
             return this.bird2Aviary.get(bird);
@@ -147,7 +177,8 @@ public class Conservatory {
 
 
     /**
-     * Print out the whole conservatory
+     * Print out the whole conservatory map which lists all the aviaries by location and the birds they house
+     * Return String: the conservatory map
      * */
     public String printAMap() {
         if (getCurrentAviaryNum() == 0) {
@@ -163,6 +194,10 @@ public class Conservatory {
         return map.toString();
     }
 
+    /**
+     * Print out the whole conservatory index, which lists all birds in the conservatory in alphabetical order and their location
+     * Return String: the conservatory's index.
+     * */
     public String printAIndex() {
         if (this.bird2Aviary.isEmpty()) {
             return "[]";

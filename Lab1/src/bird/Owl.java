@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Owls are distinguished by the facial disks that frame the eyes and bill.
+ * */
 public class Owl extends Bird {
     public Owl(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
         setTypeName(TypeName.OWL);

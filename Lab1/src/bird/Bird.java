@@ -5,6 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
 
+
+/**
+ * This is the basic bird parent class. It implements Birdable interface which define all birds common behavior.
+ * Bird class define all properties thar shared by every bird. Those properties are described in spec https://northeastern.instructure.com/courses/123270/assignments/1549374
+ * Bird has nickname, typename, species name and favorite foods demand. It could live near water or not.
+ * It is extinct right now or not
+ * It could introduce its characteristic.
+ * It has certain number of wings, including nil.
+ * */
 public abstract class Bird implements Birdable {
 
     /**
@@ -53,17 +62,27 @@ public abstract class Bird implements Birdable {
 
     }
 
-
+    /**
+     * Set extinction
+     * */
     @Override
     public void setExtinction(boolean extFlag) {
         this.isExtinct = extFlag;
     }
 
+    /**
+     * Get extinction
+     * */
     @Override
     public boolean isExtinction() {
         return this.isExtinct;
     };
 
+    /**
+     * Set nickname.
+     * nickName String: Input nickname
+     * Throw IllegalArgument: if the input nickname is invalid
+     * */
     @Override
     public void setNickName(String nickName) {
         if (checkNameValidity(nickName)) {
@@ -72,12 +91,20 @@ public abstract class Bird implements Birdable {
 
     }
 
-
+    /**
+     * Get nickname
+     * Return String: current nickname
+     * */
     @Override
     public String getNickName() {
         return this.nickName;
     }
 
+    /**
+     * Set species name.
+     * speciesName String: Input species name
+     * Throw IllegalArgument: if the input species name is invalid, or this species name is not belong to current bird type.
+     * */
     @Override
     public void setSpeciesName(String speciesName) {
         if (checkNameValidity(speciesName) && checkTypeBelong(speciesName)) {
@@ -85,12 +112,20 @@ public abstract class Bird implements Birdable {
         }
     }
 
-
+    /**
+     * Get species name.
+     * Return String: current species name
+     */
     @Override
     public String getSpeciesName() {
         return this.speciesName;
     }
 
+    /**
+     * Set type name
+     * typeName TypeName: Input enum type name
+     * Throw IllegalArgument: if the input type name does not match current bird class.
+     * */
     @Override
     public void setTypeName(TypeName typeName){
         if (!typeName.toString().equalsIgnoreCase(this.getClass().getSimpleName())) {
@@ -99,11 +134,20 @@ public abstract class Bird implements Birdable {
         this.typeName = typeName;
     }
 
+    /**
+     * Get current type Name
+     * Return TypeName: type name
+     * */
     @Override
     public TypeName getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Set this bird's characteristic.
+     * characteristic List<String>: input characteristic
+     * Throw IllegalArgumentE if there is a empty string
+     * */
     @Override
     public void setCharacteristic(List<String> characteristic){
         // Check each characteristic item
@@ -115,11 +159,20 @@ public abstract class Bird implements Birdable {
         this.Characteristic = characteristic;
     }
 
+    /**
+     * Get characteristic
+     * Return List<String>: current characteristic
+     * */
     @Override
     public List<String> getCharacteristic() {
         return this.Characteristic;
     }
 
+    /**
+     * Set wing numbers
+     * wings int: input wing number
+     * Throw exception if the input is a negative integer
+     * */
     @Override
     public void setWingsNum(int wings) {
         if (wings < 0) {
@@ -128,11 +181,20 @@ public abstract class Bird implements Birdable {
         this.wingsNum = wings;
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public int getWingsNum() {
         return this.wingsNum;
     }
 
+    /**
+     * Set wing numbers
+     * wings int: input wing number
+     * Throw exception if the input size is not two or one has ZERO portion
+     * */
     @Override
     public void setFavFood(Map<Food, Integer> favFood) {
         if (favFood.size() != 2) {
@@ -146,11 +208,20 @@ public abstract class Bird implements Birdable {
         this.favoriteFood = favFood;
     }
 
+    /**
+     * Set wing numbers
+     * wings int: input wing number
+     * Throw exception if the input is a negative integer
+     * */
     @Override
     public Map<Food, Integer> getFavFood() {
         return this.favoriteFood;
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public int getFavFoodPortion(Food food) {
         if (this.favoriteFood == null) {
@@ -162,26 +233,46 @@ public abstract class Bird implements Birdable {
         return this.favoriteFood.get(food);
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public void setWaterHabitat(boolean waterFlag) {
         this.waterHabitat = waterFlag;
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public boolean getWaterHabitat() {
         return this.waterHabitat;
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public AviaryDemand getAviaryDemand(TypeName typeName) {
         return type2Demand.get(typeName);
     }
 
+    /**
+     * Get wing numbers
+     * Return int:
+     * */
     @Override
     public AviaryDemand getAviaryDemand() {
         return type2Demand.get(this.typeName);
     }
 
+    /**
+     * Check if input species name is belong to current bird type.
+     * Return boolean:
+     * */
     @Override
     public boolean checkTypeBelong(String speciesName) {
         if (species2Type.containsKey(speciesName) && species2Type.get(speciesName) == this.typeName) {
@@ -190,6 +281,12 @@ public abstract class Bird implements Birdable {
         throw new IllegalArgumentException("This species name is not valid for current bird type");
     }
 
+    /**
+     * Check if input name is valid.
+     * A valid name only includes words, space and _
+     * The start of a valid name must be a word.
+     * Return boolean:
+     * */
     public static boolean checkNameValidity(String name) {
         if (name.length() == 0) {
             throw new IllegalArgumentException("The input name string is empty");
@@ -205,6 +302,10 @@ public abstract class Bird implements Birdable {
         return true;
     }
 
+    /**
+     * Print out the spec of this bird
+     * Return String
+     * */
     public String birdSpec() {
         String typeName = this.getTypeName().toString();
         String nickName = this.getNickName();

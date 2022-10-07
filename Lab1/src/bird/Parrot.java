@@ -6,6 +6,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Parrots have a short, curved beak and are known for their intelligence and ability to mimic sounds.
+ * Many pet parrots can learn a vocabulary of up to 100 words and often adopt a single "favorite" saying.
+ * They include the rose-ring parakeet, gray parrot, and sulfur-crested cockatoo.
+ * Parrot object could define special vocabulary "words".
+ * And it possesses special "favSaying" which could be output.
+ * */
 public class Parrot extends Bird {
 
     protected String favSaying;
@@ -49,6 +56,11 @@ public class Parrot extends Bird {
         setTypeName(TypeName.PARROT);
     }
 
+    /**
+     * set this parrot words.
+     * word int: input word
+     * Throw exception if the input is a negative number.
+     * */
     public void setWords(int words) {
         if (words <= 0) {
             throw new IllegalArgumentException("Parrot's words cannot be negative");
@@ -56,10 +68,19 @@ public class Parrot extends Bird {
         this.words = words;
     }
 
+    /**
+     * Get word
+     * Return int: current words
+     * */
     public int getWords() {
         return this.words;
     }
 
+    /**
+     * Set parrot favorite saying
+     * favSaying String: input favorite saying
+     * throw exception if the input string is empty or exceed 240 characters
+     * */
     public void setFavSaying(@NotNull String favSaying) {
         if (favSaying.length() == 0) {
             throw new IllegalArgumentException("The favorite saying is empty");
@@ -69,6 +90,10 @@ public class Parrot extends Bird {
         this.favSaying = favSaying;
     }
 
+    /**
+     * Get parrot's favorite saying
+     * Return String:
+     * */
     public String getFavSaying() {
         return this.favSaying;
     }

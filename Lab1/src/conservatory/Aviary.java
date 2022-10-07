@@ -4,6 +4,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+
+/**
+ * Aviary class define all basic properties and behaviors of every aviary
+ * An aviary could take a bird object in if that is possible,
+ * and update its special bird rule while taking the first bird and all birds' food demand.
+ * It could print out the summary of all food demands.
+ * And aviary could remove a bird or check a certain bird
+ * It can post a brief introduction sign about all contained birds.
+ * */
 public class Aviary {
     private static final int maxBirds = 5;
     protected static int AviaryIndex = 0;
