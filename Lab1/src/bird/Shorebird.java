@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Shorebird extends WaterBird {
     public Shorebird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood, WaterBody waterBody) {
-        super(waterBody);
         setTypeName(TypeName.SHOREBIRD);
         setNickName(nickName);
         setSpeciesName(speciesName);
@@ -15,13 +14,13 @@ public class Shorebird extends WaterBird {
         setCharacteristic(Arrays.asList("Shorebirds include the great auk, horned puffin, and African Jacana",
                 "They live near water sources including wetlands, freshwater and saltwater shorelands, even the ocean."));
         setWingsNum(2);
+        setWaterBody(waterBody);
     }
 
     /**
      * For the sake of convenience, this constructor only need the nickname of a new Great Auk.
      * */
     public Shorebird(String nickName) {
-        super(WaterBody.FRESH_WATER_SOURCES);
         setTypeName(TypeName.SHOREBIRD);
         setNickName(nickName);
         setSpeciesName("GreatAuk");
@@ -33,5 +32,6 @@ public class Shorebird extends WaterBird {
         setCharacteristic(Arrays.asList("Shorebirds include the great auk, horned puffin, and African Jacana",
                 "They live near water sources including wetlands, freshwater and saltwater shorelands, even the ocean."));
         setWingsNum(2);
+        setWaterBody(WaterBody.OCEAN);
     }
 }

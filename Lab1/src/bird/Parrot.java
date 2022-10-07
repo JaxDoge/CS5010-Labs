@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Parrot extends Bird {
 
-    private String favSaying;
-    private int words;
+    protected String favSaying;
+    protected int words;
     public Parrot(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood,
                   int words, String favSaying) {
         setTypeName(TypeName.PARROT);
@@ -18,7 +18,7 @@ public class Parrot extends Bird {
         setExtinction(extinction);
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("Parrots have a short, curved beak and are known for their intelligence and ability to mimic sounds",
-                "Many pet parrots can learn a vocabulary of up to 100 words and often adopt a single \"favorite\" saying."));
+                "Many pet parrots can learn a vocabulary of up to 100 words and often adopt a single favorite saying."));
         setWingsNum(2);
         setWaterHabitat(false);
         setWords(words);
@@ -38,16 +38,20 @@ public class Parrot extends Bird {
         favFood.put(Food.Nuts, 2);
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("Parrots have a short, curved beak and are known for their intelligence and ability to mimic sounds",
-                "Many pet parrots can learn a vocabulary of up to 100 words and often adopt a single \"favorite\" saying."));
+                "Many pet parrots can learn a vocabulary of up to 100 words and often adopt a single favorite saying."));
         setWingsNum(2);
         setWaterHabitat(false);
         setWords(103);
         setFavSaying(favSaying);
     }
 
+    public Parrot() {
+        setTypeName(TypeName.PARROT);
+    }
+
     public void setWords(int words) {
         if (words <= 0) {
-            throw new IllegalArgumentException("Parrot words cannot be negative");
+            throw new IllegalArgumentException("Parrot's words cannot be negative");
         }
         this.words = words;
     }

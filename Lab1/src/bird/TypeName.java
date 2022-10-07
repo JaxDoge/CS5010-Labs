@@ -1,8 +1,8 @@
 package bird;
 
 public enum TypeName {
-    FLIGHTLESS_BIRD,
-    PREY_BIRD,
+    FLIGHTLESSBIRD,
+    PREYBIRD,
     PARROT,
     WATERFOWL,
     PIGEON,

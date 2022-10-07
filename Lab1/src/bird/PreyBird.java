@@ -2,13 +2,12 @@ package bird;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PreyBird extends Bird {
 
     public PreyBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
-        setTypeName(TypeName.PREY_BIRD);
+        setTypeName(TypeName.PREYBIRD);
         setNickName(nickName);
         setSpeciesName(speciesName);
         setExtinction(extinction);
@@ -22,7 +21,7 @@ public class PreyBird extends Bird {
      * For the sake of convenience, this constructor only need the nickname of a new hawk
      * */
     public PreyBird(String nickName) {
-        setTypeName(TypeName.PREY_BIRD);
+        setTypeName(TypeName.PREYBIRD);
         setNickName(nickName);
         setSpeciesName("Hawk");
         setExtinction(false);

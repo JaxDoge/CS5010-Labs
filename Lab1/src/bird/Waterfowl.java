@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Waterfowl extends WaterBird {
     public Waterfowl(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood, WaterBody waterBody) {
-        super(waterBody);
         setTypeName(TypeName.WATERFOWL);
         setNickName(nickName);
         setSpeciesName(speciesName);
@@ -14,13 +13,13 @@ public class Waterfowl extends WaterBird {
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("Waterfowl are another classification that live near water sources (fresh or salt)","Placeholder"));
         setWingsNum(2);
+        setWaterBody(waterBody);
     }
 
     /**
      * For the sake of convenience, this constructor only need the nickname of a new swan.
      * */
     public Waterfowl(String nickName) {
-        super(WaterBody.FRESH_WATER_SOURCES);
         setTypeName(TypeName.WATERFOWL);
         setNickName(nickName);
         setSpeciesName("Swan");
@@ -31,7 +30,20 @@ public class Waterfowl extends WaterBird {
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("Waterfowl are another classification that live near water sources (fresh or salt)", "Placeholder"));
         setWingsNum(2);
+        setWaterBody(WaterBody.FRESH_WATER_SOURCES);
     }
 
 
+    public Waterfowl() {
+        setTypeName(TypeName.WATERFOWL);
+    }
+
+    @Override
+    public void setWaterBody(WaterBody waterBody) {
+        if (waterBody == WaterBody.FRESH_WATER_SOURCES || waterBody == WaterBody.SALT_WATER_SOURCES) {
+            this.waterBody = waterBody;
+            return;
+        }
+        throw new IllegalArgumentException("Not a suitable water body type for Waterfowl");
+    }
 }

@@ -7,12 +7,11 @@ import java.util.Map;
 public abstract class WaterBird extends Bird{
     protected WaterBody waterBody;
 
-    public WaterBird(WaterBody waterBody) {
-        setWaterBody(waterBody);
+    public WaterBird() {
         setWaterHabitat(true);
     }
 
-    protected void setWaterBody(WaterBody waterBody) {
+    public void setWaterBody(WaterBody waterBody) {
         this.waterBody = waterBody;
     }
 

@@ -29,9 +29,10 @@ public abstract class Bird implements Birdable {
     * Populating the species2Type memo map.
     * */
     static {
-        species2Type.put("Moa", TypeName.FLIGHTLESS_BIRD);
-        species2Type.put("Hawk", TypeName.PREY_BIRD);
+        species2Type.put("Moa", TypeName.FLIGHTLESSBIRD);
+        species2Type.put("Hawk", TypeName.PREYBIRD);
         species2Type.put("RoseringParakeet", TypeName.PARROT);
+        species2Type.put("Kakapo", TypeName.PARROT);
         species2Type.put("Swan", TypeName.WATERFOWL);
         species2Type.put("BlueheadedQuaildove", TypeName.PIGEON);
         species2Type.put("GreatAuk", TypeName.SHOREBIRD);
@@ -42,8 +43,8 @@ public abstract class Bird implements Birdable {
      * Populating the type2Demand memo map
      * */
     static {
-        type2Demand.put(TypeName.FLIGHTLESS_BIRD, AviaryDemand.FLIGHTLESS_BIRD);
-        type2Demand.put(TypeName.PREY_BIRD, AviaryDemand.PREY_BIRD);
+        type2Demand.put(TypeName.FLIGHTLESSBIRD, AviaryDemand.FLIGHTLESS_BIRD);
+        type2Demand.put(TypeName.PREYBIRD, AviaryDemand.PREY_BIRD);
         type2Demand.put(TypeName.WATERFOWL, AviaryDemand.WATERFOWL);
         type2Demand.put(TypeName.PARROT, AviaryDemand.NO_DEMAND);
         type2Demand.put(TypeName.SHOREBIRD, AviaryDemand.NO_DEMAND);
@@ -92,6 +93,9 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setTypeName(TypeName typeName){
+        if (!typeName.toString().equalsIgnoreCase(this.getClass().getSimpleName())) {
+            throw new IllegalArgumentException("The type name does not match with this bird type.");
+        }
         this.typeName = typeName;
     }
 
@@ -102,6 +106,12 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setCharacteristic(List<String> characteristic){
+        // Check each characteristic item
+        for (String chara : characteristic) {
+            if (chara.length() == 0) {
+                throw new IllegalArgumentException("One characteristic string is empty");
+            }
+        }
         this.Characteristic = characteristic;
     }
 
@@ -112,6 +122,9 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setWingsNum(int wings) {
+        if (wings < 0) {
+            throw new IllegalArgumentException("Wing number cannot be negative.");
+        }
         this.wingsNum = wings;
     }
 
@@ -122,6 +135,14 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setFavFood(Map<Food, Integer> favFood) {
+        if (favFood.size() != 2) {
+            throw new IllegalArgumentException("The number of favorite food must be TWO.");
+        }
+        for (Map.Entry<Food, Integer> set : favFood.entrySet()) {
+            if (set.getValue() <= 0) {
+                throw new IllegalArgumentException(String.format("The portion of food (%s) is less or equal to ZERO", set.getKey()));
+            }
+        }
         this.favoriteFood = favFood;
     }
 
@@ -132,6 +153,12 @@ public abstract class Bird implements Birdable {
 
     @Override
     public int getFavFoodPortion(Food food) {
+        if (this.favoriteFood == null) {
+            throw new NullPointerException("The bird's favorite food hasn't settled yet.");
+        }
+        if (!this.favoriteFood.containsKey(food)) {
+            throw new IllegalArgumentException("The bird doesn't like this food: " + food + ".");
+        }
         return this.favoriteFood.get(food);
     }
 
@@ -157,10 +184,10 @@ public abstract class Bird implements Birdable {
 
     @Override
     public boolean checkTypeBelong(String speciesName) {
-        if (!species2Type.containsKey(speciesName)) {
-            return false;
+        if (species2Type.containsKey(speciesName) && species2Type.get(speciesName) == this.typeName) {
+            return true;
         }
-        return species2Type.get(speciesName) == this.typeName;
+        throw new IllegalArgumentException("This species name is not valid for current bird type");
     }
 
     public static boolean checkNameValidity(String name) {
@@ -183,7 +210,7 @@ public abstract class Bird implements Birdable {
         String nickName = this.getNickName();
         String speciesName = this.getSpeciesName();
         String habitat = this.waterHabitat ? "Near Water" : "Land";
-        String chara = this.getCharacteristic().toString();
+        String chara = this.getCharacteristic() == null? "[]" : this.getCharacteristic().toString();
         StringBuilder describeSB = new StringBuilder();
         describeSB.append("Type: ");
         describeSB.append(typeName);

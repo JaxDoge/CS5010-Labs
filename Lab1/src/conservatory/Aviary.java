@@ -6,17 +6,18 @@ import java.util.*;
 
 public class Aviary {
     private static final int maxBirds = 5;
-    private static int AviaryIndex = 0;
+    protected static int AviaryIndex = 0;
     private final String location;
     private final ArrayList<Bird> curBirdsList;
-
+    private Set<String> birdRoster;
     private AviaryDemand aviaryDemand;
-    private Map<Food, Integer> aviaryFoodDemand;
+    protected Map<Food, Integer> aviaryFoodDemand;
 
     /**
      * default constructor. Create an empty aviary*/
     public Aviary() {
-        curBirdsList = new ArrayList<>();
+        this.curBirdsList = new ArrayList<>();
+        this.birdRoster = new HashSet<>();
         this.location = "Location " + AviaryIndex;
         AviaryIndex ++;
         aviaryFoodDemand = new HashMap<>();
@@ -36,6 +37,12 @@ public class Aviary {
      * Add a bird in this aviary
      * return Boolean: Whether this bird is successfully added*/
     public boolean addBird(@NotNull Bird bird) {
+        String birdID = bird.toString();
+        // case 0, this bird has already been taken in.
+        if (this.birdRoster.contains(birdID)) {
+//            System.out.println("Case 0, the bird has already exited in this aviary.");
+            return false;
+        }
         // case 1, this bird is extinct
         if (bird.isExtinction()) {
             System.out.println("This is an extincted bird");
@@ -44,6 +51,7 @@ public class Aviary {
         // case 2, this is an empty aviary, so it could take any bird in, excepted extincted one.
         else if (this.getBirdsCount() == 0) {
             this.curBirdsList.add(bird);
+            this.birdRoster.add(birdID);
             this.aviaryDemand = bird.getAviaryDemand();
             this.updateFoodDemand(bird);
             return true;
@@ -60,6 +68,7 @@ public class Aviary {
         } else {
             // Case 5, all other valid cases.
             this.curBirdsList.add(bird);
+            this.birdRoster.add(birdID);
             this.updateFoodDemand(bird);
             return true;
         }
@@ -68,7 +77,14 @@ public class Aviary {
     /**
      * Remove a bird from this aviary by bird pointer*/
     public boolean removeBird(Bird bird) {
-        return this.curBirdsList.remove(bird);
+        String birdID = bird.toString();
+        if (this.birdRoster.contains(birdID)) {
+            this.birdRoster.remove(birdID);
+            return this.curBirdsList.remove(bird);
+        } else {
+            System.out.println("The bird does not exist in this aviary");
+            return false;
+        }
 
     }
 
@@ -81,8 +97,12 @@ public class Aviary {
 
     /**
      * Update a new bird food requirement to the aviary level total food demands
+     * This function will only be called after a successful bird taking in.
      * */
     public void updateFoodDemand(@NotNull Bird bird) {
+        if (bird.getFavFood() == null) {
+            return;
+        }
         for (Map.Entry<Food, Integer> eachFood : bird.getFavFood().entrySet()) {
             Food eachFoodKey = eachFood.getKey();
             int eachFoodPortion = eachFood.getValue();

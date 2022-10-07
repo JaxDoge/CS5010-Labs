@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class FlightlessBird extends Bird {
     public FlightlessBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
-        setTypeName(TypeName.FLIGHTLESS_BIRD);
+        setTypeName(TypeName.FLIGHTLESSBIRD);
         setNickName(nickName);
         setSpeciesName(speciesName);
         setExtinction(extinction);
@@ -20,7 +20,7 @@ public class FlightlessBird extends Bird {
      * For the sake of convenience, this constructor only need the nickname of a new moa
      */
     public FlightlessBird(String nickName) {
-        setTypeName(TypeName.FLIGHTLESS_BIRD);
+        setTypeName(TypeName.FLIGHTLESSBIRD);
         setNickName(nickName);
         setSpeciesName("Moa");
         setExtinction(true);
