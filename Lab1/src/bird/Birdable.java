@@ -39,6 +39,8 @@ public interface Birdable {
     void setWaterHabitat(boolean waterFlag);
     boolean getWaterHabitat();
     AviaryDemand getAviaryDemand(TypeName typeName);
+    AviaryDemand getAviaryDemand();
+
     /**
      * Check if the species name of this bird is valid for this type
      * Example if user wanna create a bird: Bird bird1 = new FlightlessBird("Monica","Moa") is legal
@@ -47,9 +49,6 @@ public interface Birdable {
      * because Chicken and Hawk are not FlightlessBird
      * */
     boolean checkTypeBelong(String speciesName);
-
-
-
 
 
 }

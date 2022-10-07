@@ -3,6 +3,7 @@ package bird;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 public abstract class Bird implements Birdable {
 
@@ -64,7 +65,10 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setNickName(String nickName) {
-        this.nickName = nickName;
+        if (checkNameValidity(nickName)) {
+            this.nickName = nickName;
+        }
+
     }
 
 
@@ -75,8 +79,11 @@ public abstract class Bird implements Birdable {
 
     @Override
     public void setSpeciesName(String speciesName) {
-        this.speciesName = speciesName;
-    };
+        if (checkNameValidity(speciesName) && checkTypeBelong(speciesName)) {
+            this.speciesName = speciesName;
+        }
+    }
+
 
     @Override
     public String getSpeciesName() {
@@ -144,10 +151,63 @@ public abstract class Bird implements Birdable {
     }
 
     @Override
+    public AviaryDemand getAviaryDemand() {
+        return type2Demand.get(this.typeName);
+    }
+
+    @Override
     public boolean checkTypeBelong(String speciesName) {
         if (!species2Type.containsKey(speciesName)) {
             return false;
         }
         return species2Type.get(speciesName) == this.typeName;
     }
+
+    public static boolean checkNameValidity(String name) {
+        if (name.length() == 0) {
+            throw new IllegalArgumentException("The input name string is empty");
+        } else if (Pattern.compile("^\\W | ^_").matcher(name).find()) {
+            throw new IllegalArgumentException("The input name string start with a non-word or non-number character, included _");
+        } else if (Pattern.compile("[^\\w\\s_]").matcher(name).find()) {
+            throw new IllegalArgumentException("The input name string contains non-word special character, excepted _ and space character");
+        } else if (Pattern.compile("\\s{2,} | _{2,}").matcher(name).find()) {
+            throw new IllegalArgumentException("The input name string contains adjacent space character or _");
+        } else if (Pattern.compile("\\W$ | _$").matcher(name).find()) {
+            throw new IllegalArgumentException("The input name string end with a non-word or non-number character, included _");
+        }
+        return true;
+    }
+
+    public String birdSpec() {
+        String typeName = this.getTypeName().toString();
+        String nickName = this.getNickName();
+        String speciesName = this.getSpeciesName();
+        String habitat = this.waterHabitat ? "Near Water" : "Land";
+        String chara = this.getCharacteristic().toString();
+        StringBuilder describeSB = new StringBuilder();
+        describeSB.append("Type: ");
+        describeSB.append(typeName);
+        describeSB.append("\n");
+        describeSB.append("Species: ");
+        describeSB.append(speciesName);
+        describeSB.append("\n");
+        describeSB.append("Nickname: ");
+        describeSB.append(nickName);
+        describeSB.append("\n");
+        describeSB.append("Live in: ");
+        describeSB.append(habitat);
+        describeSB.append("\n");
+        describeSB.append("Fun info: ");
+        describeSB.append(chara);
+        return describeSB.toString();
+    }
+    @Override
+    public String toString() {
+        String typeName = this.getTypeName().toString();
+        String nickName = this.getNickName();
+        String speciesName = this.getSpeciesName();
+
+        return nickName + "-" + speciesName + "-" + typeName;
+    }
+
 }

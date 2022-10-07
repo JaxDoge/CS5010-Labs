@@ -7,25 +7,28 @@ import java.util.Map;
 
 public class PreyBird extends Bird {
 
-    public PreyBird(String nickName, String speciesName, boolean extinction) {
+    public PreyBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
+        setTypeName(TypeName.PREY_BIRD);
         setNickName(nickName);
         setSpeciesName(speciesName);
-        setTypeName(TypeName.PREY_BIRD);
         setExtinction(extinction);
-        Map<Food, Integer> favFood = new HashMap<>();
-        favFood.put(Food.Other_Birds, 5);
-        favFood.put(Food.Small_Mammals, 2);
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("have sharp, hooked beaks", "visible nostrils"));
         setWingsNum(2);
         setWaterHabitat(false);
     }
 
-    public PreyBird(String nickName, String speciesName, boolean extinction, Map<Food, Integer> favFood) {
-        setNickName(nickName);
-        setSpeciesName(speciesName);
+    /**
+     * For the sake of convenience, this constructor only need the nickname of a new hawk
+     * */
+    public PreyBird(String nickName) {
         setTypeName(TypeName.PREY_BIRD);
-        setExtinction(extinction);
+        setNickName(nickName);
+        setSpeciesName("Hawk");
+        setExtinction(false);
+        Map<Food, Integer> favFood = new HashMap<>();
+        favFood.put(Food.Other_Birds, 5);
+        favFood.put(Food.Small_Mammals, 2);
         setFavFood(favFood);
         setCharacteristic(Arrays.asList("have sharp, hooked beaks", "visible nostrils"));
         setWingsNum(2);

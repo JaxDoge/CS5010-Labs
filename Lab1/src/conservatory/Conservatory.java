@@ -1,19 +1,22 @@
 package conservatory;
 
 import java.util.*;
-import bird.Birdable;
+import bird.Bird;
+import bird.Food;
+import org.jetbrains.annotations.NotNull;
 
 
 public class Conservatory {
     private static final int maxAviaries = 20;
 
     private ArrayList<Aviary> aviaryList;
-    private static final Set<String> species = new HashSet<>(Arrays.asList("Moa", "Hawk",
-            "RoseringParakeet", "Swan", "BlueheadedQuaildove", "GreatAuk", "SnowyOwl"));
-
+    private Map<Food, Integer> conservatoryFoodDemand;
+    private Map<Bird, Aviary> bird2Aviary;
 
     public Conservatory() {
         this.aviaryList = new ArrayList<>();
+        this.conservatoryFoodDemand = new HashMap<>();
+        this.bird2Aviary = new HashMap<>();
     }
 
     /**
@@ -24,7 +27,7 @@ public class Conservatory {
 
     /**
      * Check if this conservatory has enough space to accommodate another aviary
-     * return: Boolean if there is enough space
+     * return: Boolean if there is extra space
      * */
     public boolean checkSpace() {
         return maxAviaries > this.getCurrentAviaryNum();
@@ -58,17 +61,7 @@ public class Conservatory {
      * Throws: IndexOutOfBoundsException - if the index is out of range (index < 0 || index >= size())
      * */
     public Aviary getAviary(int index) {
-        if (index < 0) {
-            System.out.printf("Index %s is smaller than ZERO.%n", index);
-            return null;
-        }
-
-        try {
-            return this.aviaryList.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please Check the conservatory size:" + e.getMessage());
-            return null;
-        }
+        return this.aviaryList.get(index);
     }
 
     /**
@@ -76,50 +69,106 @@ public class Conservatory {
      * We need check each aviary and find the first suitable one
      * If there is no aviary here, we need create one
      * Return Boolean: if this bird is successfully settle here*/
-    public boolean addNewBird(Birdable bird) {
-        // Check if bird is species
-        if (!species.contains(bird.getClass().getSimpleName())) {
-            System.out.println("It is not a bird species.");
-            return false;
-        }
-
+    public boolean addNewBird(Bird bird) {
         // Check if this bird is extincted
         if (bird.isExtinction()) {
             System.out.println("This is an extincted bird");
             return false;
         }
 
-        if (this.getCurrentAviaryNum() != 0) {
-            // case 1, check each aviary availability, if no one is available, create new one if possible
-            for (Aviary av : this.aviaryList) {
-                if (av.addBird(bird)) { return true; }
+        // case 1, check each aviary availability, if no one is available, create new one if possible
+        for (Aviary av : this.aviaryList) {
+            if (av.addBird(bird)) {
+                this.updateFoodDemand(bird);
+                this.updateBird2Aviary(bird, av);
+                return true;
             }
         }
         // case 2, create a new aviary and put the bird in if possible
-        return this.putBirdInNewAviary(bird);
+        Aviary newAvi = this.putBirdInNewAviary(bird);
+        if (newAvi != null) {
+            this.updateFoodDemand(bird);
+            this.updateBird2Aviary(bird, newAvi);
+            return true;
+        }
+        // case 3, cannot add this bird to conservatory for some reason
+        return false;
     }
 
     /**
      * Helper function: Create a new aviary and put a new bird inside
      * Return Boolean: If it is a successful operation*/
-    private boolean putBirdInNewAviary(Birdable bird) {
-        if(!this.checkSpace()) { return false; }
+    private Aviary putBirdInNewAviary(Bird bird) {
+        if(!this.checkSpace()) { return null; }
         Aviary newAv = new Aviary();
-        return this.addNewAviary(newAv) && newAv.addBird(bird);
+        if (this.addNewAviary(newAv) && newAv.addBird(bird)) {
+            return newAv;
+        }
+        return null;
     }
+
+    /**
+     * Update a new bird food requirement to the conservatory level total food demands
+     * */
+    public void updateFoodDemand(@NotNull Bird bird) {
+        for (Map.Entry<Food, Integer> eachFood : bird.getFavFood().entrySet()) {
+            Food eachFoodKey = eachFood.getKey();
+            int eachFoodPortion = eachFood.getValue();
+            this.conservatoryFoodDemand.put(eachFoodKey, this.conservatoryFoodDemand.getOrDefault(eachFoodKey,0) + eachFoodPortion);
+        }
+    }
+
+    /**
+     * Get the conservatory level food demands
+     * */
+    public Map<Food, Integer> getConservatoryFoodDemand() {
+        return this.conservatoryFoodDemand;
+    }
+
+    public void updateBird2Aviary(Bird bird, Aviary aviary) {
+        this.bird2Aviary.put(bird, aviary);
+    }
+
+    public Aviary checkBirdAviary(Bird bird) {
+        if (this.bird2Aviary.containsKey(bird)) {
+            return this.bird2Aviary.get(bird);
+        } else {
+            System.out.println("This bird has not been taken in yet.");
+            return null;
+        }
+    }
+
 
     /**
      * Print out the whole conservatory
      * */
-    @Override
-    public String toString() {
+    public String printAMap() {
         if (getCurrentAviaryNum() == 0) {
             System.out.println();
             return "{}";
         }
-        StringJoiner sj = new StringJoiner(", \n", "{", "}");
+        StringJoiner map = new StringJoiner("; \n", "{\n", "\n}");
+        int i = 0;
         for (Aviary av : this.aviaryList) {
-            sj.add(av.toString());
+            map.add("Aviary " + i + ": " + av.toString());
+            i ++;
+        }
+        return map.toString();
+    }
+
+    public String printAIndex() {
+        List<String> allBirds = new ArrayList<>();
+        for (Aviary av : this.aviaryList) {
+            String location = av.getLocation();
+            for (int i = 0; i < av.getBirdsCount(); i++) {
+                Bird b = av.getBird(i);
+                allBirds.add(b.toString() + " in " + location);
+            }
+        }
+        Collections.sort(allBirds);
+        StringJoiner sj = new StringJoiner(";\n","[\n","\n]");
+        for (String s : allBirds) {
+            sj.add(s);
         }
         return sj.toString();
     }
