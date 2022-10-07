@@ -40,8 +40,8 @@ public class Aviary {
         String birdID = bird.toString();
         // case 0, this bird has already been taken in.
         if (this.birdRoster.contains(birdID)) {
+            throw new IllegalArgumentException("Case 0, the bird has already exited in this aviary.");
 //            System.out.println("Case 0, the bird has already exited in this aviary.");
-            return false;
         }
         // case 1, this bird is extinct
         if (bird.isExtinction()) {

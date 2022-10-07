@@ -10,7 +10,7 @@ public class Conservatory {
     private static final int maxAviaries = 20;
 
     private ArrayList<Aviary> aviaryList;
-    private Map<Food, Integer> conservatoryFoodDemand;
+    protected Map<Food, Integer> conservatoryFoodDemand;
     private Map<Bird, Aviary> bird2Aviary;
 
     public Conservatory() {
@@ -38,6 +38,10 @@ public class Conservatory {
      * return: Boolean If successfully add a new aviary
      * avi: Aviary a aviary ready to be put in*/
     public boolean addNewAviary(Aviary avi) {
+        if (this.aviaryList.contains(avi)) {
+            System.out.println("This aviary is already exist.");
+            return false;
+        }
         if (this.checkSpace()) {
             this.aviaryList.add(avi);
             return true;
@@ -60,9 +64,9 @@ public class Conservatory {
      * Return Aviary:
      * Throws: IndexOutOfBoundsException - if the index is out of range (index < 0 || index >= size())
      * */
-    public Aviary getAviary(int index) {
-        return this.aviaryList.get(index);
-    }
+//    public Aviary getAviary(int index) {
+//        return this.aviaryList.get(index);
+//    }
 
     /**
      * There is a bird need to be added in this conservatory
@@ -111,6 +115,9 @@ public class Conservatory {
      * Update a new bird food requirement to the conservatory level total food demands
      * */
     public void updateFoodDemand(@NotNull Bird bird) {
+        if (bird.getFavFood() == null) {
+            return;
+        }
         for (Map.Entry<Food, Integer> eachFood : bird.getFavFood().entrySet()) {
             Food eachFoodKey = eachFood.getKey();
             int eachFoodPortion = eachFood.getValue();
@@ -157,6 +164,9 @@ public class Conservatory {
     }
 
     public String printAIndex() {
+        if (this.bird2Aviary.isEmpty()) {
+            return "[]";
+        }
         List<String> allBirds = new ArrayList<>();
         for (Aviary av : this.aviaryList) {
             String location = av.getLocation();

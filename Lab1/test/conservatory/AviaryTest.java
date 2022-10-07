@@ -41,7 +41,10 @@ class AviaryTest {
     @Test
     void addBird() {
         assertTrue(testAvi0.addBird(testOwl));
-        assertFalse(testAvi0.addBird(testOwl));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+           testAvi0.addBird(testOwl);
+        });
+        assertEquals("Case 0, the bird has already exited in this aviary.", e.getMessage());
         assertTrue(testAvi0.addBird(testPigeon));
         assertFalse(testAvi0.addBird(testHawk1));
 
