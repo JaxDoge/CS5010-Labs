@@ -219,8 +219,9 @@ public abstract class Bird implements Birdable {
     }
 
     /**
-     * Get wing numbers
-     * Return int:
+     * Get certain food portion from the bird's favorite food list
+     * food Food: input food
+     * Return int: the portion of input food
      * */
     @Override
     public int getFavFoodPortion(Food food) {
@@ -234,8 +235,8 @@ public abstract class Bird implements Birdable {
     }
 
     /**
-     * Get wing numbers
-     * Return int:
+     * Set bird's habitat
+     * waterFlag boolean: if the bird lives near water
      * */
     @Override
     public void setWaterHabitat(boolean waterFlag) {
@@ -243,8 +244,8 @@ public abstract class Bird implements Birdable {
     }
 
     /**
-     * Get wing numbers
-     * Return int:
+     * Get habitat
+     * Return boolean: if the bird lives near water or not.
      * */
     @Override
     public boolean getWaterHabitat() {
@@ -261,8 +262,8 @@ public abstract class Bird implements Birdable {
     }
 
     /**
-     * Get wing numbers
-     * Return int:
+     * Get the special aviary requirement of this bird
+     * Return AviaryDemand: current aviary demand.
      * */
     @Override
     public AviaryDemand getAviaryDemand() {

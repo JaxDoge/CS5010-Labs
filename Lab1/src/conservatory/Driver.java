@@ -64,6 +64,6 @@ public class Driver {
         System.out.println(conservatory.checkBirdAviary(bird14));
 //        System.out.println(conservatory.getAviary(2).printASign());
 //        System.out.println(conservatory.printAMap());
-        System.out.println(conservatory.printAIndex());
+//        System.out.println(conservatory.printAIndex());
     }
 }
