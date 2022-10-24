@@ -38,8 +38,8 @@ public class HeadGear extends Clothing{
      * Get the ClothingName of this clothing,
      * @return HeadGearName: the clothing name.
      */
-    public HeadGearName getClothingName() {
-        return this.clothingName;
+    public String getClothingName() {
+        return this.clothingName.toString();
     }
 
     /**

@@ -20,8 +20,9 @@ public class FootWear extends Clothing{
         return clothingType;
     }
 
-    public FootWearName getClothingName() {
-        return this.clothingName;
+        @Override
+    public String getClothingName() {
+        return this.clothingName.toString();
     }
 
 

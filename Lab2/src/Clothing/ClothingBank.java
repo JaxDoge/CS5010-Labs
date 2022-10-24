@@ -23,6 +23,13 @@ public class ClothingBank implements Iterable<Clothing>{
     }
 
     /**
+     * Get the current size of clothing bank
+     * */
+    public int getSize() {
+        return stock.size();
+    }
+
+    /**
      * Add new clothing
      * */
     public void addClothing(Clothing newCloth) {
@@ -40,15 +47,15 @@ public class ClothingBank implements Iterable<Clothing>{
     }
 
     /**
-     * Generate a iterator
+     * Generate an iterator
      * if this bank never be sorted, then shuffle and sort it
      * the reason of shuffling is that the lab spec require player pick up a random gear if there isn't the best choice.
-     * I don't wanna reimplement the iterator of linked list, so I just return the sdk link iterator.
+     * I don't want to reimplement the iterator of linked list, so I just return the sdk link iterator.
      * */
     @Override
     public Iterator<Clothing> iterator() {
         if (sortFlag) {
-            Collections.shuffle(stock);
+            Collections.shuffle(stock, new Random(5010));
             Collections.sort(stock);
             sortFlag = true;
         }

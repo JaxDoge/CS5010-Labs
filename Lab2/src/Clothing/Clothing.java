@@ -1,6 +1,7 @@
 package Clothing;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public abstract class Clothing implements Clothingable{
 
@@ -130,10 +131,15 @@ public abstract class Clothing implements Clothingable{
         if (!this.equalClothingType(otherClothes)) {
             throw new IllegalArgumentException("These two clothing are not belong to the same type. Combining failure");
         }
+        // this clothing prefix comes first
         this.clothingPrefix.addAll(otherClothes.clothingPrefix);
-        this.setDefencePoint(this.getDefence() + otherClothes.getDefence());
-        this.setAttackPoint(this.getAttack() + otherClothes.getAttack());
-        return this;
+        // update other's prefix
+        otherClothes.clothingPrefix = this.clothingPrefix;
+        // update statics
+        otherClothes.setDefencePoint(this.getDefence() + otherClothes.getDefence());
+        otherClothes.setAttackPoint(this.getAttack() + otherClothes.getAttack());
+        // return other clothing, with same clothes' name
+        return otherClothes;
     }
 
     /**
@@ -146,11 +152,35 @@ public abstract class Clothing implements Clothingable{
      * @param otherClothes : other clothes
      * @return Boolean: equal type or not.
      */
-    @Override
-    public boolean equalClothingType(Clothing otherClothes) {
+    protected boolean equalClothingType(Clothing otherClothes) {
         // Well, professor said we should avoid using member variable to distinguish different gear types. @185
         // Don't understand why, but ...
 //        return this.getClothingType().equals(otherClothes.getClothingType());
         return this.getClass().getSimpleName().equals(otherClothes.getClass().getSimpleName());
+    }
+
+    /**
+     * Protect abstract method to deliver subclasses clothing name to parent clothing class
+     * @return String clothing name.
+     * */
+    protected abstract String getClothingName();
+
+    /**
+     * Print the clothing object in a string
+     * @return String
+     * */
+    @Override
+    public String toString() {
+        StringJoiner sj = new StringJoiner(", ");
+        for (ClothingPrefix pf : this.clothingPrefix) {
+            sj.add(pf.toString());
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(sj);
+        sb.append(" ");
+        sb.append(this.getClothingName());
+//        sb.append(" Defence Point: ").append(this.defencePoint).append(" AttackPoint: ").append(this.attackPoint);
+
+        return sb.toString();
     }
 }

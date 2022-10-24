@@ -19,8 +19,9 @@ public class HandGear extends Clothing{
         return clothingType;
     }
 
-    public HandGearName getClothingName() {
-        return this.clothingName;
+    @Override
+    public String getClothingName() {
+        return this.clothingName.toString();
     }
 
 
