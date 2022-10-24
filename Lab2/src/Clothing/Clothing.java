@@ -34,7 +34,7 @@ public abstract class Clothing implements Clothingable{
      *         from being compared to this object.
      * */
     @Override
-    public int compareTo(Clothing other) {
+    public int compareTo(Clothing other) throws NullPointerException, ClassCastException {
         if (this.attackPoint == other.attackPoint) {
             return other.defencePoint - this.defencePoint;
         }
@@ -127,9 +127,12 @@ public abstract class Clothing implements Clothingable{
      * @return Clothing: A new Clothing object after combination.
      */
     @Override
-    public Clothing combTo(Clothing otherClothes) {
+    public Clothing combTo(Clothing otherClothes) throws IllegalArgumentException, ClassCastException, NullPointerException {
         if (!this.equalClothingType(otherClothes)) {
             throw new IllegalArgumentException("These two clothing are not belong to the same type. Combining failure");
+        }
+        if (otherClothes == this) {
+            throw new IllegalArgumentException("Clothing cannot combine with itself. Combining failure");
         }
         // this clothing prefix comes first
         this.clothingPrefix.addAll(otherClothes.clothingPrefix);
@@ -138,6 +141,8 @@ public abstract class Clothing implements Clothingable{
         // update statics
         otherClothes.setDefencePoint(this.getDefence() + otherClothes.getDefence());
         otherClothes.setAttackPoint(this.getAttack() + otherClothes.getAttack());
+        // update combination level
+        otherClothes.increaseCombLvl();
         // return other clothing, with same clothes' name
         return otherClothes;
     }
@@ -166,21 +171,15 @@ public abstract class Clothing implements Clothingable{
     protected abstract String getClothingName();
 
     /**
-     * Print the clothing object in a string
-     * @return String
+     * Print this object with basic info in a string.
+     * @return String prefix properties + name + combination level
      * */
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner(", ");
-        for (ClothingPrefix pf : this.clothingPrefix) {
-            sj.add(pf.toString());
+        for (ClothingPrefix cp : this.getClothingPrefix()) {
+            sj.add(cp.toString());
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(sj);
-        sb.append(" ");
-        sb.append(this.getClothingName());
-//        sb.append(" Defence Point: ").append(this.defencePoint).append(" AttackPoint: ").append(this.attackPoint);
-
-        return sb.toString();
+        return sj + " " + this.getClothingName() + " CombineLevel: " + this.getComblvl();
     }
 }

@@ -20,19 +20,9 @@ public class FootWear extends Clothing{
         return clothingType;
     }
 
-        @Override
+    @Override
     public String getClothingName() {
         return this.clothingName.toString();
     }
 
-
-    @Override
-    public String toString() {
-        StringJoiner sj = new StringJoiner(", ");
-        for (ClothingPrefix cp : this.getClothingPrefix()) {
-            sj.add(cp.toString());
-        }
-        sj.add(this.getClothingName().toString());
-        return sj + " CombineLevel: " + this.getComblvl();
-    }
 }

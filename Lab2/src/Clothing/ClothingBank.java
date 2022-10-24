@@ -32,7 +32,10 @@ public class ClothingBank implements Iterable<Clothing>{
     /**
      * Add new clothing
      * */
-    public void addClothing(Clothing newCloth) {
+    public void addClothing(Clothing newCloth) throws IllegalArgumentException, IllegalStateException {
+        if (this.stock.contains(newCloth)) {
+            throw new IllegalArgumentException("This clothes is already exists in the stock");
+        }
         if (stock.size() >= maxNum) {
             throw new IllegalStateException("This clothing bank is full. Cannot add new clothing anymore");
         }
@@ -41,9 +44,12 @@ public class ClothingBank implements Iterable<Clothing>{
 
     /**
      * Delete certain clothing from this bank
-     * */
-    public void deleteClothing(Clothing clothing) {
-        stock.remove(clothing);
+     * Removes the first occurrence of the specified element from this stock.
+     * @throws ClassCastException if the type of the specified element
+     *         is not Clothing.
+     */
+    public boolean deleteClothing(Clothing clothing) {
+        return stock.remove(clothing);
     }
 
     /**
@@ -54,7 +60,7 @@ public class ClothingBank implements Iterable<Clothing>{
      * */
     @Override
     public Iterator<Clothing> iterator() {
-        if (sortFlag) {
+        if (!sortFlag) {
             Collections.shuffle(stock, new Random(5010));
             Collections.sort(stock);
             sortFlag = true;

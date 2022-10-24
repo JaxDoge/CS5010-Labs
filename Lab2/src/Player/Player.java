@@ -28,7 +28,7 @@ public class Player implements Playerable{
     @Override
     public int compareTo(Player o) {
         int thisDamage = o.attackPoint - this.defencePoint;
-        int otherDamage = this.defencePoint - o.attackPoint;
+        int otherDamage = this.attackPoint - o.defencePoint;
         return thisDamage - otherDamage;
     }
 
@@ -109,13 +109,14 @@ public class Player implements Playerable{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Player ").append(this.playerID).append(": ").append("\n");
-        sb.append("  Defence Point: ").append(this.defencePoint).append(" AttackPoint: ").append(this.attackPoint).append("\n");
+        sb.append("  Defence Point: ").append(this.defencePoint).append(" AttackPoint: ").append(this.attackPoint);
         // if this player has no gear at this moment, return basic info.
         if (this.gearNum == 0) {
             return sb.toString();
         }
+        sb.append("\n");
         // otherwise add gears info at tail.
-        StringJoiner sj = new StringJoiner(",\n","[","]\n");
+        StringJoiner sj = new StringJoiner(",\n","[","]");
         List<Clothing> allGear = new ArrayList<>();
         allGear.addAll(Arrays.asList(this.headGear));
         allGear.addAll(Arrays.asList(this.handGears));
