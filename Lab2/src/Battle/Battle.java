@@ -6,6 +6,11 @@ import Player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Battle class could instantiate a real battle with preset clothing bank and two players and ten different clothing.
+ * the outcome is fixed.
+ * It just for imitation purpose
+ * */
 public class Battle {
     private Player p1;
     private Player p2;
@@ -54,6 +59,10 @@ public class Battle {
         clothingBank.addClothing(HanG4);
     }
 
+    /**
+     * Two player choose their gears from clothing bank in turn
+     * Print the player after he picks up a gear.
+     * */
     private void equipPhase() {
         while (clothingBank.getSize() > 0) {
             p1.pickup(clothingBank);
@@ -63,6 +72,9 @@ public class Battle {
         }
     }
 
+    /**
+     * Battle launcher.
+     * */
     public String finalWinner() {
         equipPhase();
         int outcome = p1.compareTo(p2);

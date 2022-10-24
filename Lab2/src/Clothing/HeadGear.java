@@ -5,6 +5,10 @@ import java.util.StringJoiner;
 
 import static Clothing.ClothingType.HEAD_GEAR;
 
+/**
+ * HeadGear is the subclass of Clothing.
+ * It has static clothing type and clothing name belong to special enum type
+ * */
 public class HeadGear extends Clothing{
 
     private static final ClothingType clothingType = HEAD_GEAR;

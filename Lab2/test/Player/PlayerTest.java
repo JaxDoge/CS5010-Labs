@@ -89,17 +89,27 @@ class PlayerTest {
 
         p1.pickup(testCB);
         assertEquals(9, testCB.getSize());
-        p2.pickup(testCB);
-        assertEquals(8, testCB.getSize());
-
         assertTrue(p1.compareTo(p2) < 0);
-
         assertEquals("Player 0: \n" +
                 "  Defence Point: 0 AttackPoint: 16\n" +
                 "[Corrosive SWORD CombineLevel: 0]", p1.toString());
-        assertEquals("Player 1: \n" +
-                "  Defence Point: 0 AttackPoint: 15\n" +
-                "[Corrosive SWORD CombineLevel: 0]", p2.toString());
+
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+        p1.pickup(testCB);
+
+        assertEquals("Player 0: \n" +
+                "  Defence Point: 43 AttackPoint: 75\n" +
+                "[Glowing, Celestial, Celestial HAT CombineLevel: 1,\n" +
+                "Corrosive, Corrosive SWORD CombineLevel: 0,\n" +
+                "Corrosive, Corrosive SWORD CombineLevel: 1,\n" +
+                "Celestial BOOT CombineLevel: 0,\n" +
+                "Hibernal, Corrosive, Corrosive SNEAKER CombineLevel: 1]", p1.toString());
 
     }
 

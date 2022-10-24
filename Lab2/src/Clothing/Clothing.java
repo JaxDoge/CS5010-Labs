@@ -3,6 +3,11 @@ package Clothing;
 import java.util.List;
 import java.util.StringJoiner;
 
+
+/**
+ * Abstract parent Clothing class.
+ * It defines most common properties and behaviors of clothing objects and child objects
+ * */
 public abstract class Clothing implements Clothingable{
 
     protected List<ClothingPrefix> clothingPrefix;
@@ -65,6 +70,7 @@ public abstract class Clothing implements Clothingable{
 
     /**
      * Increase combination level by one
+     * Protected helper function.
      * */
     protected void increaseCombLvl() {
         this.combLevel += 1;

@@ -24,7 +24,13 @@ public class Player implements Playerable{
     }
 
 
-
+    /**
+     * Compare two players.
+     * If this player takes more damage, return a negative integer.
+     * If they take the same damage, return ZERO.
+     * Otherwise, return a positive integer
+     * @return Integer the deduction of this damage and other damage
+     * */
     @Override
     public int compareTo(Player o) {
         int thisDamage = o.attackPoint - this.defencePoint;
@@ -37,6 +43,21 @@ public class Player implements Playerable{
      * */
     static class comblvlComparator implements Comparator<Clothing> {
 
+        /**
+         * Compare two gears.
+         * If first gear has lower comb level, return a negative integer.
+         * If second gear has lower comb level, return a positive integer.
+         * Otherwise, return ZERO.
+         * @param o1 the first object to be compared.
+         * @param o2 the second object to be compared.
+         * @return a negative integer, zero, or a positive integer as the
+         *         first argument is less than, equal to, or greater than the
+         *         second.
+         * @throws NullPointerException if an argument is null and this
+         *         comparator does not permit null arguments
+         * @throws ClassCastException if the arguments' types prevent them from
+         *         being compared by this comparator.
+         * */
         @Override
         public int compare(Clothing o1, Clothing o2) {
             return o1.getComblvl() - o2.getComblvl();
@@ -52,7 +73,9 @@ public class Player implements Playerable{
     public void pickup(ClothingBank clothingBank) {
         // Case 1, check if there is an empty slot for current candidate.
         for (Clothing clothing : clothingBank) {
+            // Determine the position of this candidate gear.
             Clothing[] targetPosition = pickupInsertPosition(clothing);
+            // Find an empty slot.
             for (int i = 0; i < targetPosition.length; i++) {
                 if (targetPosition[i] == null) {
                     targetPosition[i] = clothing;
@@ -105,6 +128,9 @@ public class Player implements Playerable{
         this.attackPoint += clothing.getAttack();
     }
 
+    /**
+     * Print this player in format: Player UID, ATK, DFS, all equipped clothes(if possible).
+     * */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
